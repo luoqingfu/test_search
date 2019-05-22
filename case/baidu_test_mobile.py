@@ -4,13 +4,17 @@ import unittest
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.chrome.options import Options as CH_Options
 from function import Excel
 
 url = 'https://www.baidu.com/'
 
 mobileEmulation = {'deviceName': 'iPhone X'}
-options = webdriver.ChromeOptions()
+options = CH_Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--window-size=1920x1080")
+options.add_argument('--no-sandbox')# 在Ubuntu上执行要加上这句
 options.add_experimental_option('mobileEmulation', mobileEmulation)
 chrome_driver_path = os.path.split(os.path.realpath(__file__))[0] + '/chromedriver'
 search_key = ['英荔', '英荔教育', '英荔商学院']
@@ -134,7 +138,7 @@ class baiDuMoblie(unittest.TestCase):
                         self.set_excel_data('search_result', c+38, n + 1, '没有定位到元素')
                         self.set_excel_data('search_result', c+38, n + 2, '没有结果')
 
-
+        print('完成{}测试'.format('test_search_baidu_mobile'))
 if __name__ =='__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(baiDuMoblie)
     unittest.TextTestRunner(verbosity=2).run(suite)

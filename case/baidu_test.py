@@ -1,6 +1,6 @@
 import os
 import unittest
-
+from selenium.webdriver.chrome.options import Options as CH_Options
 from time import sleep
 from selenium import webdriver
 
@@ -12,9 +12,14 @@ search_key = ['英荔', '英荔教育', '英荔商学院']
 search_ele = [r'#\31  > div > article > header > div > a > h3 > span', r'#\32  > h3 > a', r'#\33  > div > article > header > div > a > h3 > span',
               r'#\34  > h3 > a', r'#\35  > h3 > a']
 search_eles = [r'#\31  > h3 > a', r'#\32  > h3 > a', r'#\33  > h3 > a', r'#\34  > h3 > a', r'#\35  > h3 > a']
+options = CH_Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--window-size=1920x1080")
+options.add_argument('--no-sandbox')# 在Ubuntu上执行要加上这句
 class baiDu(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(chrome_driver_path)
+        self.driver = webdriver.Chrome(chrome_driver_path,options=options)
         self.driver.get(url)
         self.driver.maximize_window()
     def tearDown(self):
@@ -94,6 +99,7 @@ class baiDu(unittest.TestCase):
                         self.set_excel_data('search_result', c + 2, n + 2, '没有结果')
 
                 n += 4
+        print('完成{}测试'.format('test_search_baidu'))
 if __name__ =='__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(baiDu)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -3,7 +3,7 @@ import unittest
 
 from time import sleep
 from selenium import webdriver
-
+from selenium.webdriver.chrome.options import Options as CH_Options
 from function import Excel
 
 url = 'https://www.sogou.com/'
@@ -12,6 +12,11 @@ search_key = ['英荔', '英荔教育', '英荔商学院']
 search_ele = [r'#sogou_cpc_0', r'#sogou_vr_30000909_0', r'#uigs__1', r'#sogou_vr_30000909_2', r'#sogou_vr_30000909_4']
 search_eles = [r'#sogou_cpc_0', r'#uigs__0', r'#sogou_vr_30000909_1', r'#sogou_vr_30000909_2', r'#sogou_vr_30000909_4']
 search_eless = [r'#ad_leftresult_0 > h3 > a', r'#uigs__0', r'#uigs__1', r'#sogou_vr_10000201_2', r'#sogou_vr_30000909_4']
+options = CH_Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--window-size=1920x1080")
+options.add_argument('--no-sandbox')# 在Ubuntu上执行要加上这句
 class soGou(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome(chrome_driver_path)
@@ -126,6 +131,7 @@ class soGou(unittest.TestCase):
                         self.set_excel_data('search_result', c + 20, n, '没有定位到元素')
                         self.set_excel_data('search_result', c + 20, n + 1, '没有定位到元素')
                         self.set_excel_data('search_result', c + 20, n + 2, '没有结果')
+        print('完成{}测试'.format('sougou_test'))
 
 if __name__ =='__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(soGou)

@@ -1,6 +1,6 @@
 import os
 import unittest
-
+from selenium.webdriver.chrome.options import Options as CH_Options
 from time import sleep
 from selenium import webdriver
 
@@ -11,10 +11,14 @@ chrome_driver_path = os.path.split(os.path.realpath(__file__))[0] + '/chromedriv
 search_key = ['英荔', '英荔教育', '英荔商学院']
 search_ele = [r'#main > ul > li:nth-child(1) > h3 > a', r'#main > ul > li:nth-child(2) > h3 > a', r'#main > ul > li:nth-child(3) > h3 > a',
               r'#main > ul > li:nth-child(4) > h3 > a', r'#main > ul > li:nth-child(5) > h3 > a']
-
+options = CH_Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--window-size=1920x1080")
+options.add_argument('--no-sandbox')# 在Ubuntu上执行要加上这句
 class test_360(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(chrome_driver_path)
+        self.driver = webdriver.Chrome(chrome_driver_path,options=options)
         self.driver.get(url)
         self.driver.maximize_window()
     def tearDown(self):
@@ -68,6 +72,7 @@ class test_360(unittest.TestCase):
                     self.set_excel_data('search_result', c + 29, n + 1, '没有定位到元素')
                     self.set_excel_data('search_result', c + 29, n + 2, '没有结果')
             n = n + 4
+        print('完成{}测试'.format('test_360'))
 if __name__ =='__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(test_360)
     unittest.TextTestRunner(verbosity=2).run(suite)
