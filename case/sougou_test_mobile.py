@@ -117,7 +117,6 @@ class souGouMoblie(unittest.TestCase):
                         sleep(2)
                     except:
                         print(search_ele[c])
-                        print(btn_c_t)
                         self.set_excel_data('search_result', c+56, n, '没有定位到元素')
                         self.set_excel_data('search_result', c+56, n + 1, '没有定位到元素')
                         self.set_excel_data('search_result', c+56, n + 2, '没有结果')

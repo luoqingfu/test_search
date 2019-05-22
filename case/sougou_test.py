@@ -19,7 +19,7 @@ options.add_argument("--window-size=1920x1080")
 options.add_argument('--no-sandbox')# 在Ubuntu上执行要加上这句
 class soGou(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(chrome_driver_path)
+        self.driver = webdriver.Chrome(chrome_driver_path, options=options)
         self.driver.get(url)
         self.driver.maximize_window()
     def tearDown(self):

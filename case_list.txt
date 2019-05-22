@@ -4,5 +4,5 @@ baidu_test
 baidu_test_mobile
 bing_test
 bing_test_mobile
-sogou_test
-sogou_test_mobile
+sougou_test
+sougou_test_mobile

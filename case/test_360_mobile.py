@@ -60,6 +60,7 @@ class Moblie360(unittest.TestCase):
     def test_search_360_moblie(self):
         n = 0
         for i in range(0, len(search_key)):
+            sleep(1)
             search_input = self.driver.find_element_by_id('q')
             search_input.clear()
             search_input.send_keys(search_key[i])

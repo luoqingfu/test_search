@@ -4,6 +4,7 @@ import unittest
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as CH_Options
+from selenium.webdriver.common.keys import Keys
 
 from function import Excel
 
@@ -70,8 +71,8 @@ class bingMoblie(unittest.TestCase):
             search_input = self.driver.find_element_by_id('sb_form_q')
             search_input.clear()
             search_input.send_keys(search_key[i])
-            search_btn = self.driver.find_element_by_id('sb_form_go')
-            search_btn.click()
+            sleep(1)
+            search_input.send_keys(Keys.ENTER)
             sleep(1)
             if i == 0:
                 for c in range(0, len(search_eles)):
